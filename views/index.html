@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>URL Shortener</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <link href="/public/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="container">
+    <h3>Short URL Creation </h3>
+    <p>
+      Example: <code>POST [project_url]/api/shorturl/new</code> - <code>https://www.google.com</code>
+    </p>
+    <form action="api/shorturl/new" method="POST">
+      <label for="url_input">URL to be shortened</label>
+      <input id="url_input" type="text" name="url" value="https://www.google.com">
+      <input type="submit" value="POST URL">
+    </form>
+  </div>
+  <div class="footer">
+    <p>
+      Made by <a href="https://github.com/sbvkrishna">SBVKRISHNA</a>
+    </p>
+  </div>
+</body>
+
+
+</html>
