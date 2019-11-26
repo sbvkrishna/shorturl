@@ -1,31 +1,32 @@
 'use strict';
 
 var express = require('express');
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+const api = require('./routes/api')
 
 var app = express();
 
 // Basic Configuration 
+require('dotenv').config();
+
 const port = process.env.PORT || 3000;
-
-// mongoose.connect(process.env.MONGOLAB_URI);
-
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/public', express.static(process.cwd() + '/public'));
+
 
 app.get('/', (req, res) => {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-app.get("/api/hello", (req, res) => {
-  res.json({ greeting: 'hello API' });
-});
+app.use('/api/shorturl', api);
 
 
 app.listen(port, () => {
