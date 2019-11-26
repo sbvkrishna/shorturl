@@ -4,7 +4,7 @@ var express = require('express');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const api = require('./routes/api')
+const api = require('../routes/api')
 const serverless = require('serverless-http');
 
 var app = express();
@@ -20,19 +20,15 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/public', express.static(process.cwd() + '../public'));
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 
 
 app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + '/views/index.html');
+  res.sendFile(process.cwd() + '../views/index.html');
 });
 
 app.use('/api/shorturl', api);
 
-
-app.listen(port, () => {
-  console.log(`Server listening on ${port}`);
-});
 
 module.exports.handler = serverless(app);
